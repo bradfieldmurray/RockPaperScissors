@@ -22,7 +22,7 @@ function playRound(pl, comp){
 
 //generate a random choice for the computer
 function computerPlay() {
-  var numericSelection = Math.floor(Math.random() * (3-1 + 1) + 1);
+  let numericSelection = Math.floor(Math.random() * (3-1 + 1) + 1);
   switch(numericSelection) {
     case 1:
       return "Rock";
@@ -38,20 +38,26 @@ function computerPlay() {
 
 //func to play a game of 5 rounds and display the score at the end
 function game(){
-  var computerSelection;
-  var plScore = 0;
-  var cpScore = 0;
- 
-  console.log("------------\nCurrent score : " + plScore + " - " + cpScore);
-  for(var i = 0; i < 5; i++){
+  let computerSelection;
+  let plScore = 0;
+  let cpScore = 0;
+
+  for(let i = 0; i < 5; i++){
     computerSelection = computerPlay();
-    if(playRound("Scissors", computerSelection)[4] == 'l') {
+
+    let plChoice = prompt("Enter a choice: ");
+
+    if(playRound(plChoice, computerSelection) == 'Tie!') {
+
+    } else if(playRound(plChoice, computerSelection)[4] == 'l') {
       cpScore++;
-    } else if(playRound("Scissors", computerSelection)[4] == 'w') {
+    } else if(playRound(plChoice, computerSelection)[4] == 'w') {
       plScore++;
     }
   }
+
   console.log("---------------------");
+  console.log("------------\nScore : " + plScore + " - " + cpScore);
   
 }
 
