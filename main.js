@@ -39,13 +39,14 @@ function computerPlay() {
 //func to play a game of 5 rounds and display the score at the end
 function game(){
   let computerSelection;
+  let plChoice;
   let plScore = 0;
   let cpScore = 0;
 
   for(let i = 0; i < 5; i++){
     computerSelection = computerPlay();
 
-    let plChoice = prompt("Enter a choice: ");
+    plChoice = prompt("Enter a choice: ");
 
     if(playRound(plChoice, computerSelection) == 'Tie!') {
 
@@ -54,6 +55,8 @@ function game(){
     } else if(playRound(plChoice, computerSelection)[4] == 'w') {
       plScore++;
     }
+
+    console.log(playRound(plChoice, computerSelection));
   }
 
   console.log("---------------------");
