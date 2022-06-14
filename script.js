@@ -1,5 +1,5 @@
 function playRound(playerSelection, computerSelection) {
-    if(playerSelection === "rock") {
+    if(playerSelection == "Rock") {
         if(computerSelection === "paper") {
             return "computer wins, paper covers rock";
         } else if(computerSelection === "scissors") {
@@ -7,7 +7,7 @@ function playRound(playerSelection, computerSelection) {
         } else {
             return "Tie";
         }
-    } else if(playerSelection === "paper") {
+    } else if(playerSelection == "Paper") {
         if(computerSelection === "scissors") {
             return "computer wins, scissors cuts paper";
         } else if(computerSelection === "rock") {
@@ -16,7 +16,7 @@ function playRound(playerSelection, computerSelection) {
             return "Tie";
         }
     } else {
-        if(computerSelection === "rock") {
+        if(computerSelection == "Rock") {
             return "computer wins, rock crushes scissors";
         } else if(computerSelection === "paper") {
             return "player wins, scissors cuts paper";
@@ -38,16 +38,32 @@ function computerPlay() {
     }
 }
 
+let buttons = document.querySelectorAll('button');
+const container = document.querySelector('#container');
+let count = 0;
 
 
 
-function game (){
-    for(let i = 0; i < 5; i++) {
-        let playerHand = prompt("enter: ");
-        const computerSelection = computerPlay();
-        console.log(playRound(playerHand, computerSelection));
-    }
-}
 
-game();
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        const result = document.createTextNode(playRound(button.id, computerPlay()));
+        const node = document.createElement('li');
+        node.appendChild(result);
+        document.getElementById('scores').appendChild(node);
+    });
+});
+
+
+
+
+// function game (){
+//     for(let i = 0; i < 5; i++) {
+//         let playerHand = prompt("enter: ");
+//         const computerSelection = computerPlay();
+//         console.log(playRound(playerHand, computerSelection));
+//     }
+// }
+
+//game();
 
