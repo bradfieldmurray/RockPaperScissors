@@ -1,25 +1,25 @@
 function playRound(playerSelection, computerSelection) {
     if(playerSelection == "Rock") {
         if(computerSelection === "paper") {
-            return "computer wins, paper covers rock";
+            return "Computer wins, paper covers rock";
         } else if(computerSelection === "scissors") {
-            return "player wins, rock crushes scissors"
+            return "Player wins, rock smashes scissors"
         } else {
             return "Tie";
         }
     } else if(playerSelection == "Paper") {
         if(computerSelection === "scissors") {
-            return "computer wins, scissors cuts paper";
+            return "Computer wins, scissors cuts paper";
         } else if(computerSelection === "rock") {
-            return "player wins, paper covers rock";
+            return "Player wins, paper covers rock";
         } else {
             return "Tie";
         }
     } else {
         if(computerSelection == "Rock") {
-            return "computer wins, rock crushes scissors";
+            return "Computer wins, rock smashes scissors";
         } else if(computerSelection === "paper") {
-            return "player wins, scissors cuts paper";
+            return "Player wins, scissors cuts paper";
         } else {
             return "Tie";
         }
@@ -38,32 +38,42 @@ function computerPlay() {
     }
 }
 
-let buttons = document.querySelectorAll('button');
-const container = document.querySelector('#container');
+const buttons = document.querySelectorAll('button');
+const controller = new AbortController();
+
 let count = 0;
+let playerScore = 0;
+let compScore = 0;
 
 
 
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
-        const result = document.createTextNode(playRound(button.id, computerPlay()));
-        const node = document.createElement('li');
-        node.appendChild(result);
-        document.getElementById('scores').appendChild(node);
-    });
+    const result = document.createTextNode(playRound(button.id, computerPlay()));
+
+    if(result.substringData(0,1) == "P") {
+        playerScore++;
+        document.getElementById('playerScore').textContent = `Player - ${playerScore}`;
+    } else if(result.substringData(0,1) == "C") {
+        compScore++;
+        document.getElementById('compScore').textContent = `Computer - ${compScore}`;
+    }
+
+    const node = document.createElement('li');
+    node.appendChild(result);
+    document.getElementById('results').appendChild(node);
+    count++;
+    if(count == 5) {
+        controller.abort();
+        const gameResult = document.getElementById('gameResult');
+        if(playerScore > compScore) {
+            gameResult.textContent = `Player wins, ${playerScore} - ${compScore}`;
+        } else if(compScore > playerScore) {
+            gameResult.textContent = `Computer wins, ${compScore} - ${playerScore}`;
+        } else {
+            gameResult.textContent = `Tie game`;
+        }
+    }
+    }, {signal: controller.signal});
 });
-
-
-
-
-// function game (){
-//     for(let i = 0; i < 5; i++) {
-//         let playerHand = prompt("enter: ");
-//         const computerSelection = computerPlay();
-//         console.log(playRound(playerHand, computerSelection));
-//     }
-// }
-
-//game();
-
